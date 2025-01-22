@@ -1,10 +1,12 @@
 package com.mybackend.dslist.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mybackend.dslist.dto.GameDTO;
 import com.mybackend.dslist.dto.GameMinDTO;
 import com.mybackend.dslist.entities.Game;
 import com.mybackend.dslist.repositories.GameRepository;
@@ -19,5 +21,10 @@ public class GameService {
 		List<Game> list = gameRepository.findAll();
 		List<GameMinDTO> result = list.stream().map(x -> new GameMinDTO(x)).toList();
 		return result;
+	}
+	
+	public GameDTO findById(long id) {
+		Optional<Game> game = gameRepository.findById(id);
+		return new GameDTO(game.get());
 	}
 }
